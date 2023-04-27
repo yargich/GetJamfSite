@@ -12,3 +12,19 @@ because:
 inventory collection.
 2. In my organization, computers rarely (if ever) move site to site, so there is no need
 to retrieve their site as frequently as Jamf's regular check-in period.
+
+## Usage
+This repo has two scripts: 
+- `getJamfSite.zsh` should be run as a script in a policy at some kind of regular
+interval (daily, weekly, or whatever need your organization has) and takes the following
+parameters:
+	- $4 is your Jamf server's URL
+	- $5 is the base-64 encoded credentials to an account with read access to whatever
+	computer objects you want to search (in most cases, the full Jamf server)
+	- $6 is set up for script testing -- put `test` in this variable to check 
+	functionality
+- `getExtAttribute.zsh` should be run as an extension attribute. It retrieves the site
+stored in a PLIST by the previous script (if any) and makes it a Jamf attribute.
+
+At the moment, I'm just doing this for our group, but it would be lovely if other groups
+find some kind of use in it.
