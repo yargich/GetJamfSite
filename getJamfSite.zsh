@@ -29,8 +29,7 @@ function sanityCheck {
 	# Without these variables, the script won't do anything
 	# Parameters:
 	# 1 - jssURL
-	# 2 - credentials
-	
+	# 2 - credentials	
 	if [ -z "$1" ]; then
 		echo $error_jssURL
 	elif [ -z "$2" ]; then
@@ -88,7 +87,7 @@ function getComputer {
 		exit 1
 	fi
 	# computer record without the status code
-	computerJson=${computerRaw::-3}
+	computerJson=${computerRaw:0:-3}
 	# status code
 	statusCode=${computerRaw: -3}
 	
@@ -98,7 +97,7 @@ function getComputer {
 	fi
 	debug "Raw JSON: ${computerJson:0:150}..."
 	debug  "Status Code: $statusCode"
-	if [ "${statusCode::1}" != "2" ]; then
+	if [ "${statusCode:0:1}" != "2" ]; then
 		echo "Server returned invalid status code ($statusCode)"
 		exit 1
 	fi
